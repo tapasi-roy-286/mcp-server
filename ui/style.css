@@ -136,20 +136,17 @@
 }
 
 #rf-btn-container {
-    width: auto !important;
-    height: auto !important;
+    position: relative !important;
+    width: 36px !important;
+    height: 36px !important;
     flex-shrink: 0 !important;
     margin-bottom: 4px !important;
 }
 
-#rf-action-cluster {
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-}
-
 button.rf-action-btn {
-    position: static !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
     width: 36px !important;
     height: 36px !important;
     min-width: 36px !important;
@@ -161,11 +158,21 @@ button.rf-action-btn {
     border: none !important;
     color: white !important;
     cursor: pointer !important;
-    transition: transform 0.1s, opacity 0.2s, background 0.2s !important;
+    transition: transform 0.1s, opacity 0.2s, background 0.2s, box-shadow 0.2s !important;
     box-shadow: none !important;
 }
 button.rf-action-btn:active {
     transform: scale(0.9) !important;
+}
+
+button.rf-action-btn.rf-visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+button.rf-action-btn.rf-hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 #rf-send-btn {
@@ -182,10 +189,12 @@ button.rf-action-btn:active {
 #rf-send-btn.rf-active {
     background: #000000 !important;
     color: #ffffff !important;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.12) !important;
 }
 .dark #rf-send-btn.rf-active {
     background: #ffffff !important;
     color: #000000 !important;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.18) !important;
 }
 
 #rf-stop-btn {
@@ -206,11 +215,17 @@ button.rf-action-btn:active {
 #rf-stop-btn.rf-stop-active {
     background: #d64045 !important;
     color: #fff2f2 !important;
+    box-shadow: 0 0 0 2px rgba(214, 64, 69, 0.18) !important;
 }
 
 .dark #rf-stop-btn.rf-stop-active {
     background: #ff9a9e !important;
     color: #2f1113 !important;
+    box-shadow: 0 0 0 2px rgba(255, 154, 158, 0.2) !important;
+}
+
+button.rf-action-btn:hover {
+    filter: brightness(1.05) !important;
 }
 
 #rf-toolbar {

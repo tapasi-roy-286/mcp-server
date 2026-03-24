@@ -204,11 +204,16 @@ def _button_states(text: str, running: bool = False):
     has_text = bool(text and text.strip())
     send_active = has_text and not running
     stop_active = running
-    send_classes = ["rf-action-btn", "rf-active" if send_active else "rf-inactive"]
+    send_classes = [
+        "rf-action-btn",
+        "rf-active" if send_active else "rf-inactive",
+        "rf-visible" if not running else "rf-hidden",
+    ]
     stop_classes = [
         "rf-action-btn",
         "rf-stop-btn",
         "rf-stop-active" if stop_active else "rf-stop-idle",
+        "rf-visible" if running else "rf-hidden",
     ]
     return (
         gr.update(interactive=send_active, elem_classes=send_classes),
@@ -300,22 +305,26 @@ def build_ui():
                 container=False,
                 elem_id="rf-msg-box",
             )
-            with gr.Column(elem_id="rf-btn-container", scale=0, min_width=78):
-                with gr.Row(elem_id="rf-action-cluster"):
-                    send_btn = gr.Button(
-                        "↑",
-                        variant="primary",
-                        elem_id="rf-send-btn",
-                        elem_classes=["rf-action-btn", "rf-inactive"],
-                        interactive=False,
-                    )
-                    stop_btn = gr.Button(
-                        "■",
-                        variant="primary",
-                        elem_id="rf-stop-btn",
-                        elem_classes=["rf-action-btn", "rf-stop-btn", "rf-stop-idle"],
-                        interactive=False,
-                    )
+            with gr.Column(elem_id="rf-btn-container", scale=0, min_width=36):
+                send_btn = gr.Button(
+                    "↑",
+                    variant="primary",
+                    elem_id="rf-send-btn",
+                    elem_classes=["rf-action-btn", "rf-inactive", "rf-visible"],
+                    interactive=False,
+                )
+                stop_btn = gr.Button(
+                    "■",
+                    variant="primary",
+                    elem_id="rf-stop-btn",
+                    elem_classes=[
+                        "rf-action-btn",
+                        "rf-stop-btn",
+                        "rf-stop-idle",
+                        "rf-hidden",
+                    ],
+                    interactive=False,
+                )
 
         running_state = gr.State(False)
 
