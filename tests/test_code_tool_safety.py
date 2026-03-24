@@ -1,10 +1,22 @@
 import unittest
 from unittest.mock import patch
+import os
 
 from experts.code.tools.code import code_tool
 
 
 class CodeToolSafetyTests(unittest.TestCase):
+    def setUp(self):
+        self._env_patch = patch.dict(
+            os.environ,
+            {"RF_CODE_TOOL_ISOLATION": "process"},
+            clear=False,
+        )
+        self._env_patch.start()
+
+    def tearDown(self):
+        self._env_patch.stop()
+
     def test_run_basic_code(self):
         result = code_tool("print(2 + 2)", operation="run")
         self.assertEqual(result.get("stdout"), "4\n")
